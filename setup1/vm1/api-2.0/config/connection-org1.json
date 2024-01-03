@@ -1,0 +1,62 @@
+{
+    "name": "first-network-FF",
+    "version": "1.0.0",
+    "client": {
+        "organization": "FF",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "FF": {
+            "mspid": "FFMSP",
+            "peers": [
+                "peer0.FF.neXt.com",
+                "peer1.FF.neXt.com"
+            ],
+            "certificateAuthorities": [
+                "ca.FF.neXt.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.FF.neXt.com": {
+            "url": "grpcs://peer0.FF.neXt.com:7051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICFzCCAb2gAwIBAgIUCo+tE3rRpzoJwY7eKOyZyow7wIkwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTIzMTIxODIyNTUwMFoXDTM4MTIxNDIyNTUwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDMJ2Adqx/CI0Ka3xBv5YLGon\nBEpWrr/uTXl8l9cdFAVt+oCPsMCzQp5WJ2ngJYGg0vrdRrTIu1BrknUnTSjgzaNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFE7+H+DGaqOZLaFZ+mTE2vKDu5a6MAoGCCqGSM49BAMCA0gAMEUCIQCRDzJR8HME\n4/akCvGD9jfHJup4r5qWYvLKommsuHLkJwIgP9T+1cBfhevWA2gftfsqpKdK1EmE\nEnzgB7DdIpAX6TE=\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.FF.neXt.com",
+                "hostnameOverride": "peer0.FF.neXt.com"
+            }
+        },
+	"peer1.FF.neXt.com": {
+            "url": "grpcs://peer1.FF.neXt.com:8051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICFzCCAb2gAwIBAgIUCo+tE3rRpzoJwY7eKOyZyow7wIkwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTIzMTIxODIyNTUwMFoXDTM4MTIxNDIyNTUwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDMJ2Adqx/CI0Ka3xBv5YLGon\nBEpWrr/uTXl8l9cdFAVt+oCPsMCzQp5WJ2ngJYGg0vrdRrTIu1BrknUnTSjgzaNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFE7+H+DGaqOZLaFZ+mTE2vKDu5a6MAoGCCqGSM49BAMCA0gAMEUCIQCRDzJR8HME\n4/akCvGD9jfHJup4r5qWYvLKommsuHLkJwIgP9T+1cBfhevWA2gftfsqpKdK1EmE\nEnzgB7DdIpAX6TE=\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.FF.neXt.com",
+                "hostnameOverride": "peer1.FF.neXt.com"
+            }
+        }
+
+	
+    },
+    "certificateAuthorities": {
+        "ca.FF.neXt.com": {
+            "url": "https://ca.FF.neXt.com:7054",
+            "caName": "ca.FF.neXt.com",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICFzCCAb2gAwIBAgIUCo+tE3rRpzoJwY7eKOyZyow7wIkwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTIzMTIxODIyNTUwMFoXDTM4MTIxNDIyNTUwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDMJ2Adqx/CI0Ka3xBv5YLGon\nBEpWrr/uTXl8l9cdFAVt+oCPsMCzQp5WJ2ngJYGg0vrdRrTIu1BrknUnTSjgzaNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFE7+H+DGaqOZLaFZ+mTE2vKDu5a6MAoGCCqGSM49BAMCA0gAMEUCIQCRDzJR8HME\n4/akCvGD9jfHJup4r5qWYvLKommsuHLkJwIgP9T+1cBfhevWA2gftfsqpKdK1EmE\nEnzgB7DdIpAX6TE=\n-----END CERTIFICATE-----\n"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

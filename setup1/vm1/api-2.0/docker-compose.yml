@@ -1,0 +1,23 @@
+version: "2.1"
+
+networks:
+  neXt:
+
+services:
+  api:
+    image: api:1.0
+    build: .
+    networks:
+      - neXt
+    extra_hosts:
+      - "peer0.FF.neXt.com:34.125.51.62"
+      - "peer0.Clemson.neXt.com:34.125.115.109"
+      - "peer0.SCN.neXt.com:34.125.145.115"
+      - "peer1.FF.neXt.com:34.125.51.62"
+      - "peer2.Clemson.neXt.com:34.125.115.109"
+      - "peer3.SCN.neXt.com:34.125.145.115"
+      - "orderer.neXt.com:34.16.131.165"
+      - "orderer2.neXt.com:34.16.131.165"
+      - "orderer3.neXt.com:34.16.131.165"
+    ports:
+      - 4000:4000
