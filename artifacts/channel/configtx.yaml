@@ -1,0 +1,225 @@
+Organizations:
+
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/msp
+
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
+
+    - &FF
+        Name: FFMSP
+        ID: FFMSP
+
+        MSPDir: ../../setup1/vm1/crypto-config/peerOrganizations/FF.neXt.com/msp
+
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('FFMSP.admin', 'FFMSP.peer', 'FFMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('FFMSP.admin', 'FFMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('FFMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('FFMSP.peer')"
+
+        AnchorPeers:
+            - Host: peer0.FF.neXt.com
+              Port: 7051
+
+    - &Clemson
+        Name: ClemsonMSP
+
+        ID: ClemsonMSP
+
+        MSPDir: ../../setup1/vm2/crypto-config/peerOrganizations/Clemson.neXt.com/msp
+
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('ClemsonMSP.admin', 'ClemsonMSP.peer', 'ClemsonMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('ClemsonMSP.admin', 'ClemsonMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('ClemsonMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('ClemsonMSP.peer')"
+
+        AnchorPeers:
+            - Host: peer0.Clemson.neXt.com
+              Port: 9051
+
+    - &SCN
+        Name: SCNMSP
+
+        ID: SCNMSP
+
+        MSPDir: ../../setup1/vm3/crypto-config/peerOrganizations/SCN.neXt.com/msp
+
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('SCNMSP.admin', 'SCNMSP.peer', 'SCNMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('SCNMSP.admin', 'SCNMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('SCNMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('SCNMSP.peer')"
+
+        AnchorPeers:
+            - Host: peer0.SCN.neXt.com
+              Port: 11051
+
+Capabilities:
+    Channel: &ChannelCapabilities
+        V2_0: true
+
+    Orderer: &OrdererCapabilities
+        V2_0: true
+
+    Application: &ApplicationCapabilities
+        V2_0: true
+
+Application: &ApplicationDefaults
+
+    Organizations:
+
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+
+    Capabilities:
+        <<: *ApplicationCapabilities
+
+Orderer: &OrdererDefaults
+
+    OrdererType: etcdraft
+
+    EtcdRaft:
+        Consenters:
+        - Host: orderer.neXt.com
+          Port: 7050
+          ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer.neXt.com/tls/server.crt
+          ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer.neXt.com/tls/server.crt
+    Addresses:
+        - orderer.neXt.com:7050
+
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+
+    Capabilities:
+        <<: *ChannelCapabilities
+
+Profiles:
+
+    BasicChannel:
+        Consortium: SampleConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *FF
+                - *Clemson
+                - *SCN
+            Capabilities:
+                <<: *ApplicationCapabilities
+
+    OrdererGenesis:
+        <<: *ChannelDefaults
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            OrdererType: etcdraft
+            EtcdRaft:
+                Consenters:
+                - Host: orderer.neXt.com
+                  Port: 7050
+                  ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer.neXt.com/tls/server.crt
+                  ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer.neXt.com/tls/server.crt
+                - Host: orderer2.neXt.com
+                  Port: 8050
+                  ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer2.neXt.com/tls/server.crt
+                  ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer2.neXt.com/tls/server.crt
+                - Host: orderer3.neXt.com
+                  Port: 9050
+                  ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer3.neXt.com/tls/server.crt
+                  ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/neXt.com/orderers/orderer3.neXt.com/tls/server.crt
+            Addresses:
+                - orderer.neXt.com:7050
+                - orderer2.neXt.com:8050
+                - orderer3.neXt.com:9050
+
+            Organizations:
+            - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                - *FF
+                - *Clemson
+                - *SCN
